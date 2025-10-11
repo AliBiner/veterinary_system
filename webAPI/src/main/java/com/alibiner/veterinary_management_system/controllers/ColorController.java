@@ -30,23 +30,23 @@ public class ColorController {
         this.colorService = colorService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Result<ColorResponseDto>> create(@Valid @RequestBody(required = false) ColorCreateRequestDto dto) {
         ColorRequestDto mapped = modelMapperService.forRequest().map(dto, ColorRequestDto.class);
         ColorResponseDto result = colorService.create(mapped);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Result<ColorResponseDto>> update(@Valid @RequestBody(required = false) ColorUpdateDto request) {
         ColorRequestDto mapped = modelMapperService.forResponse().map(request, ColorRequestDto.class);
         ColorResponseDto result = colorService.update(mapped);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @DeleteMapping(value = "/", params = {"id"})
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Result<Void>> delete(
-            @RequestParam(name = "id", required = false)
+            @PathVariable(name = "id", required = false)
             @Min(value = 1, message = "Id not be negative or zero")
             @NotNull(message = "Id can not be null")
             Long id
@@ -55,20 +55,21 @@ public class ColorController {
         return ResponseEntity.ok(Result.ok());
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Result<Page<ColorResponseDto>>> getAll(Pageable pageable) {
         Page<ColorResponseDto> result = colorService.getAll(pageable);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @GetMapping(value = "/", params = {"id"})
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Result<ColorResponseDto>> getById(
-            @RequestParam(name = "id", required = false)
+            @PathVariable(name = "id", required = false)
             @Positive(message = "Id can not be negative or zero")
             @NotNull(message = "Id can not be null")
             long id) {
         ColorResponseDto result = colorService.getById(id);
         return ResponseEntity.ok(Result.ok(result));
     }
+
 
 }
