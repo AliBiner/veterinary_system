@@ -55,12 +55,16 @@ public class ColorService implements IColorService {
     }
 
     @Override
-    public ColorResponseDto getById(Long aLong) {
-        return null;
+    public ColorResponseDto getById(Long id) {
+        Optional<Color> result = colorRepository.findByIdAndIsDeleteFalse(id);
+        if (result.isEmpty())
+            throw new NotFoundException("Color not found");
+        return modelMapperService.forResponse().map(result.get(), ColorResponseDto.class);
     }
 
     @Override
     public Page<ColorResponseDto> getAll(Pageable pageable) {
-        return null;
+        Page<Color> colors = colorRepository.findAllByIsDeleteFalse(pageable);
+        return colors.map(color -> modelMapperService.forRequest().map(color, ColorResponseDto.class));
     }
 }
