@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
         <module name="data-access" />
-        <module name="veteriner" />
         <module name="service" />
       </profile>
       <profile name="Annotation profile for veterinary_management_system" enabled="true">
@@ -17,11 +16,13 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
         </processorPath>
         <module name="veterinary_management_system" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="veteriner" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
