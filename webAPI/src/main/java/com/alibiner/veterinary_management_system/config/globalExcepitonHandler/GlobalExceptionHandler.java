@@ -4,6 +4,7 @@ import java.util.*;
 import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.veterinary_management_system.result.Result;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,30 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Result<Map<String, String>>> handleConstraintViolationException(ConstraintViolationException e) {
+        Map<String, String> errorMessages = new HashMap<>();
+        e.getConstraintViolations().forEach(constraintViolation -> {
+                    String param = constraintViolation.getPropertyPath().toString();
+                    String message = constraintViolation.getMessage();
+                    errorMessages.put(param, message);
+                }
+        );
+
+        return ResponseEntity.badRequest().body(Result.validation(errorMessages));
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<Result<Void>> handleHandlerMethodValidationException(HandlerMethodValidationException e) {
+        return ResponseEntity.badRequest().body(Result.badRequest(e.getMessage()));
+    }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Result<Void>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
