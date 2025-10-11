@@ -27,35 +27,37 @@ public class CityController {
         this.modelMapperService = modelMapperService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Result<CityResponseDto>> create(@Valid @RequestBody(required = false) CityCreateRequestDto request) {
         CityRequestDto serviceRequest = modelMapperService.forRequest().map(request, CityRequestDto.class);
         CityResponseDto result = cityService.create(serviceRequest);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Result<CityResponseDto>> update(@Valid @RequestBody(required = false) CityUpdateRequestDto request) {
+        System.out.println(request);
         CityRequestDto serviceRequest = modelMapperService.forRequest().map(request, CityRequestDto.class);
         CityResponseDto result = cityService.update(serviceRequest);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<Result<Void>> delete(@Valid @RequestParam(name = "id", required = false) @Positive(message = "Can not be negative or zero") long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result<Void>> delete(@Valid @PathVariable(required = false) @Positive(message = "Can " +
+            "not be negative or zero") long id) {
         cityService.delete(id);
         return ResponseEntity.ok(Result.ok());
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<Result<Page<CityResponseDto>>> getAll(Pageable pageable) {
         //todo - PagedResourcesAssembler assembler neler yapıyor
         Page<CityResponseDto> cities = cityService.getAll(pageable);
         return ResponseEntity.ok(Result.ok(cities));
     }
 
-    @GetMapping(value = "/", params = {"id"})
-    public ResponseEntity<Result<CityResponseDto>> getById(@RequestParam(required = false) long id) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Result<CityResponseDto>> getById(@PathVariable(required = false) long id) {
         CityResponseDto city = cityService.getById(id);
         return ResponseEntity.ok(Result.ok(city));
     }
