@@ -16,4 +16,6 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
     Optional<Color> findByIdAndIsDeleteFalse(Long id);
 
     Page<Color> findAllByIsDeleteFalse(Pageable pageable);
+
+    Page<Color> findByNameContainsIgnoreCaseAndIsDeleteFalse(String name, Pageable pageable);
 }

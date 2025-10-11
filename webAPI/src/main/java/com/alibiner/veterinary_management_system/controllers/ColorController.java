@@ -71,5 +71,11 @@ public class ColorController {
         return ResponseEntity.ok(Result.ok(result));
     }
 
-
+    @GetMapping(params = {"name"})
+    public ResponseEntity<Result<Page<ColorResponseDto>>> getByName(
+            @RequestParam(name = "name", required = false)
+            String name, Pageable pageable) {
+        Page<ColorResponseDto> result = colorService.getByName(name, pageable);
+        return ResponseEntity.ok(Result.ok(result));
+    }
 }

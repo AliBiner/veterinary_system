@@ -67,4 +67,10 @@ public class ColorService implements IColorService {
         Page<Color> colors = colorRepository.findAllByIsDeleteFalse(pageable);
         return colors.map(color -> modelMapperService.forRequest().map(color, ColorResponseDto.class));
     }
+
+    @Override
+    public Page<ColorResponseDto> getByName(String name, Pageable pageable) {
+        Page<Color> colors = colorRepository.findByNameContainsIgnoreCaseAndIsDeleteFalse(name, pageable);
+        return colors.map(color -> modelMapperService.forResponse().map(color, ColorResponseDto.class));
+    }
 }
