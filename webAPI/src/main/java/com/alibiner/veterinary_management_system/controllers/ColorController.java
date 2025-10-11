@@ -8,10 +8,13 @@ import com.alibiner.dtos.response.color.ColorResponseDto;
 import com.alibiner.interfaces.color.IColorService;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/api/v1/colors")
 public class ColorController {
@@ -40,10 +43,10 @@ public class ColorController {
 
     @DeleteMapping(value = "/", params = {"id"})
     public ResponseEntity<Result<Void>> delete(
-            @Valid
-            @Positive(message = "Id can not be negative or zero")
             @RequestParam(name = "id", required = false)
-            long id
+            @Min(value = 1, message = "Id not be negative or zero")
+            @NotNull(message = "Id can not be null")
+            Long id
     ) {
         colorService.delete(id);
         return ResponseEntity.ok(Result.ok());
