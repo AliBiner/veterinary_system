@@ -37,3 +37,4 @@ build/
 /target/
 
 *.class
+/src/test/java/com/alibiner/veterinary_management_system/VeterinaryManagementSystemApplicationTests.java
