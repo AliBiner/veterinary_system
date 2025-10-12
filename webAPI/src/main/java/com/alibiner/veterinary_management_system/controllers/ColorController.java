@@ -31,14 +31,14 @@ public class ColorController {
     }
 
     @PostMapping
-    public ResponseEntity<Result<ColorResponseDto>> create(@Valid @RequestBody(required = false) ColorCreateRequestDto dto) {
+    public ResponseEntity<Result<ColorResponseDto>> create(@Valid @RequestBody ColorCreateRequestDto dto) {
         ColorRequestDto mapped = modelMapperService.forRequest().map(dto, ColorRequestDto.class);
         ColorResponseDto result = colorService.create(mapped);
         return ResponseEntity.ok(Result.ok(result));
     }
 
     @PutMapping
-    public ResponseEntity<Result<ColorResponseDto>> update(@Valid @RequestBody(required = false) ColorUpdateDto request) {
+    public ResponseEntity<Result<ColorResponseDto>> update(@Valid @RequestBody ColorUpdateDto request) {
         ColorRequestDto mapped = modelMapperService.forResponse().map(request, ColorRequestDto.class);
         ColorResponseDto result = colorService.update(mapped);
         return ResponseEntity.ok(Result.ok(result));

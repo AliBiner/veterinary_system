@@ -30,14 +30,14 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<Result<CityResponseDto>> create(@Valid @RequestBody(required = false) CityCreateRequestDto request) {
+    public ResponseEntity<Result<CityResponseDto>> create(@Valid @RequestBody CityCreateRequestDto request) {
         CityRequestDto serviceRequest = modelMapperService.forRequest().map(request, CityRequestDto.class);
         CityResponseDto result = cityService.create(serviceRequest);
         return ResponseEntity.ok(Result.ok(result));
     }
 
     @PutMapping
-    public ResponseEntity<Result<CityResponseDto>> update(@Valid @RequestBody() CityUpdateRequestDto request) {
+    public ResponseEntity<Result<CityResponseDto>> update(@Valid @RequestBody CityUpdateRequestDto request) {
         System.out.println(request);
         CityRequestDto serviceRequest = modelMapperService.forRequest().map(request, CityRequestDto.class);
         CityResponseDto result = cityService.update(serviceRequest);
@@ -55,7 +55,6 @@ public class CityController {
 
     @GetMapping
     public ResponseEntity<Result<Page<CityResponseDto>>> getAll(@RequestParam(required = false, name = "name") String name, Pageable pageable) {
-        //todo - PagedResourcesAssembler assembler neler yapıyor
         CitySpecification specification = new CitySpecification(new CitySearchCriteria(name));
         Page<CityResponseDto> cities = cityService.getAll(pageable, specification);
         return ResponseEntity.ok(Result.ok(cities));
