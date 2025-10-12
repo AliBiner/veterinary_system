@@ -99,7 +99,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Result<Void>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        return ResponseEntity.badRequest().body(Result.badRequest("Can not be null request"));
+        return ResponseEntity.badRequest().body(Result.badRequest(e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
