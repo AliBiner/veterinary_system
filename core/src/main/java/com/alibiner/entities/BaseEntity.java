@@ -1,6 +1,7 @@
 package com.alibiner.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,10 +11,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Data
 public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generator")
-    @Column(name = "id")
-    private long id;
 
     @Column(name = "created_date", updatable = false)
     @CreationTimestamp

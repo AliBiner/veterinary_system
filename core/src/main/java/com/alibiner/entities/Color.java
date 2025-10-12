@@ -1,7 +1,7 @@
 package com.alibiner.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import java.util.*;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "colors")
 public class Color extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "color_id")
+    private UUID id;
 
     @Column(name = "color_name", nullable = false)
     private String name;
