@@ -9,6 +9,7 @@ import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.species.ISpeciesService;
 import com.alibiner.repositories.SpeciesRepository;
+import com.alibiner.specifications.species.SpeciesSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class SpeciesService implements ISpeciesService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         Optional<Species> species = speciesRepository.findByIdAndIsDeleteFalse(id);
         if (species.isEmpty())
             throw new NotFoundException("Species not found");
@@ -57,7 +58,7 @@ public class SpeciesService implements ISpeciesService {
     }
 
     @Override
-    public SpeciesResponseDto getById(Long id) {
+    public SpeciesResponseDto getById(UUID id) {
         Optional<Species> species = speciesRepository.findByIdAndIsDeleteFalse(id);
         if (species.isEmpty())
             throw new NotFoundException("Species not found");
@@ -65,14 +66,8 @@ public class SpeciesService implements ISpeciesService {
     }
 
     @Override
-    public Page<SpeciesResponseDto> getAll(Pageable pageable) {
-        Page<Species> allSpecies = speciesRepository.findByIsDeleteFalse(pageable);
+    public Page<SpeciesResponseDto> getAll(Pageable pageable, SpeciesSpecification specification) {
+        Page<Species> allSpecies = speciesRepository.findAll(specification, pageable);
         return allSpecies.map(species -> modelMapperService.forResponse().map(species, SpeciesResponseDto.class));
-    }
-
-    @Override
-    public Page<SpeciesResponseDto> getByName(String name, Pageable pageable) {
-        Page<Species> allSpeciesByName = speciesRepository.findByNameContainsIgnoreCaseAndIsDeleteFalse(name, pageable);
-        return allSpeciesByName.map(species -> modelMapperService.forResponse().map(species, SpeciesResponseDto.class));
     }
 }

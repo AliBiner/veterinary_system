@@ -1,16 +1,16 @@
 package com.alibiner.veterinary_management_system.controllers;
 
+import java.util.*;
 import com.alibiner.config.modelMapper.IModelMapperService;
 import com.alibiner.dtos.request.species.controller.SpeciesCreateRequestDto;
 import com.alibiner.dtos.request.species.controller.SpeciesUpdateRequestDto;
 import com.alibiner.dtos.request.species.service.SpeciesRequestDto;
 import com.alibiner.dtos.response.species.SpeciesResponseDto;
 import com.alibiner.interfaces.species.ISpeciesService;
+import com.alibiner.specifications.species.SpeciesSearchCriteria;
+import com.alibiner.specifications.species.SpeciesSpecification;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -46,38 +46,28 @@ public class SpeciesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Result<Void>> delete(
-            @PathVariable(name = "id", required = false)
-            @Positive(message = "id must be positive")
-            long id
+            @PathVariable
+            UUID id
     ) {
         speciesService.delete(id);
         return ResponseEntity.ok(Result.ok());
     }
 
     @GetMapping
-    public ResponseEntity<Result<Page<SpeciesResponseDto>>> getAll(Pageable pageable) {
-        Page<SpeciesResponseDto> species = speciesService.getAll(pageable);
+    public ResponseEntity<Result<Page<SpeciesResponseDto>>> getAll(
+            @RequestParam(name = "name", required = false)
+            String name,
+            Pageable pageable) {
+        SpeciesSpecification specification = new SpeciesSpecification(new SpeciesSearchCriteria(name));
+        Page<SpeciesResponseDto> species = speciesService.getAll(pageable, specification);
         return ResponseEntity.ok(Result.ok(species));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Result<SpeciesResponseDto>> getById(
-            @PathVariable(name = "id", required = false)
-            @Positive(message = "id must be positive")
-            long id) {
+            @PathVariable
+            UUID id) {
         SpeciesResponseDto result = speciesService.getById(id);
         return ResponseEntity.ok(Result.ok(result));
     }
-
-    @GetMapping(params = {"name"})
-    public ResponseEntity<Result<Page<SpeciesResponseDto>>> getAllByName(
-            @RequestParam(name = "name", required = false)
-            @NotNull(message = "species name param can not be null")
-            @NotBlank(message = "species name param can not be blank")
-            String name,
-            Pageable pageable) {
-        Page<SpeciesResponseDto> result = speciesService.getByName(name, pageable);
-        return ResponseEntity.ok(Result.ok(result));
-    }
-
 }
