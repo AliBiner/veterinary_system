@@ -1,6 +1,7 @@
 package com.alibiner.dtos.request.city.service;
 
 
+import java.util.*;
 import com.alibiner.dtos.request.BaseRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CityRequestDto extends BaseRequestDto {
-    private Long id;
+    private UUID id;
     private String name;
 
 }

@@ -1,5 +1,6 @@
 package com.alibiner.dtos.response.city;
 
+import java.util.*;
 import com.alibiner.dtos.response.BaseResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CityResponseDto extends BaseResponseDto {
-    private long id;
+    private UUID id;
     private String name;
 }

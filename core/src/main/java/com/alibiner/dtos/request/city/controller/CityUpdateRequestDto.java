@@ -1,8 +1,8 @@
 package com.alibiner.dtos.request.city.controller;
 
+import java.util.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CityUpdateRequestDto {
     @NotNull(message = "City id can not be null")
-    @Positive(message = "City id can not be negative or zero")
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "City name can not be null")
     @NotBlank(message = "City name can not be blank")
