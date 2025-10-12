@@ -44,7 +44,7 @@ public class SpeciesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Result<Void>> delete(
-            @PathVariable
+            @PathVariable(name = "id", required = false)
             @Positive(message = "id must be positive")
             long id
     ) {
