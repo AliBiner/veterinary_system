@@ -57,8 +57,11 @@ public class SpeciesService implements ISpeciesService {
     }
 
     @Override
-    public SpeciesResponseDto getById(Long aLong) {
-        return null;
+    public SpeciesResponseDto getById(Long id) {
+        Optional<Species> species = speciesRepository.findByIdAndIsDeleteFalse(id);
+        if (species.isEmpty())
+            throw new NotFoundException("Species not found");
+        return modelMapperService.forResponse().map(species.get(), SpeciesResponseDto.class);
     }
 
     @Override

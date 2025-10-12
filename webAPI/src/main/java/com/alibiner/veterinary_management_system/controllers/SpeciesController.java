@@ -57,4 +57,13 @@ public class SpeciesController {
         Page<SpeciesResponseDto> species = speciesService.getAll(pageable);
         return ResponseEntity.ok(Result.ok(species));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Result<SpeciesResponseDto>> getById(
+            @PathVariable(name = "id", required = false)
+            @Positive(message = "id must be positive")
+            long id) {
+        SpeciesResponseDto result = speciesService.getById(id);
+        return ResponseEntity.ok(Result.ok(result));
+    }
 }
