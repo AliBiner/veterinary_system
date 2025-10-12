@@ -1,10 +1,12 @@
 package com.alibiner.services.species;
 
+import java.util.*;
 import com.alibiner.config.modelMapper.IModelMapperService;
 import com.alibiner.dtos.request.species.service.SpeciesRequestDto;
 import com.alibiner.dtos.response.species.SpeciesResponseDto;
 import com.alibiner.entities.Species;
 import com.alibiner.exceptions.AlreadyExistException;
+import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.species.ISpeciesService;
 import com.alibiner.repositories.SpeciesRepository;
 import org.springframework.data.domain.Page;
@@ -34,7 +36,15 @@ public class SpeciesService implements ISpeciesService {
 
     @Override
     public SpeciesResponseDto update(SpeciesRequestDto dto) {
-        return null;
+        Optional<Species> species = speciesRepository.findByIdAndIsDeleteFalse(dto.getId());
+        if (species.isEmpty())
+            throw new NotFoundException("Species not found");
+        if (speciesRepository.existsByNameAndIsDeleteFalse(dto.getName()))
+            throw new AlreadyExistException("Species name already exists");
+
+        species.get().setName(dto.getName());
+        speciesRepository.save(species.get());
+        return modelMapperService.forResponse().map(species.get(), SpeciesResponseDto.class);
     }
 
     @Override
