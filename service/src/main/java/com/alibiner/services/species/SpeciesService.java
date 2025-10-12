@@ -63,6 +63,7 @@ public class SpeciesService implements ISpeciesService {
 
     @Override
     public Page<SpeciesResponseDto> getAll(Pageable pageable) {
-        return null;
+        Page<Species> allSpecies = speciesRepository.findByIsDeleteFalse(pageable);
+        return allSpecies.map(species -> modelMapperService.forResponse().map(species, SpeciesResponseDto.class));
     }
 }
