@@ -69,4 +69,10 @@ public class SpeciesService implements ISpeciesService {
         Page<Species> allSpecies = speciesRepository.findByIsDeleteFalse(pageable);
         return allSpecies.map(species -> modelMapperService.forResponse().map(species, SpeciesResponseDto.class));
     }
+
+    @Override
+    public Page<SpeciesResponseDto> getByName(String name, Pageable pageable) {
+        Page<Species> allSpeciesByName = speciesRepository.findByNameContainsIgnoreCaseAndIsDeleteFalse(name, pageable);
+        return allSpeciesByName.map(species -> modelMapperService.forResponse().map(species, SpeciesResponseDto.class));
+    }
 }

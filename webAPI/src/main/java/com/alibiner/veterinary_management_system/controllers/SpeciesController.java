@@ -8,6 +8,8 @@ import com.alibiner.dtos.response.species.SpeciesResponseDto;
 import com.alibiner.interfaces.species.ISpeciesService;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -66,4 +68,16 @@ public class SpeciesController {
         SpeciesResponseDto result = speciesService.getById(id);
         return ResponseEntity.ok(Result.ok(result));
     }
+
+    @GetMapping(params = {"name"})
+    public ResponseEntity<Result<Page<SpeciesResponseDto>>> getAllByName(
+            @RequestParam(name = "name", required = false)
+            @NotNull(message = "species name param can not be null")
+            @NotBlank(message = "species name param can not be blank")
+            String name,
+            Pageable pageable) {
+        Page<SpeciesResponseDto> result = speciesService.getByName(name, pageable);
+        return ResponseEntity.ok(Result.ok(result));
+    }
+
 }

@@ -15,4 +15,6 @@ public interface SpeciesRepository extends JpaRepository<Species, Long> {
 
     Page<Species> findByIsDeleteFalse(Pageable pageable);
 
+    Page<Species> findByNameContainsIgnoreCaseAndIsDeleteFalse(String name, Pageable pageable);
+
 }
