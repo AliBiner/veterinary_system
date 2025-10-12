@@ -2,20 +2,15 @@ package com.alibiner.repositories;
 
 import java.util.*;
 import com.alibiner.entities.Color;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ColorRepository extends JpaRepository<Color, Long> {
-    boolean existsByNameIgnoreCaseAndIsDeleteFalse(String name);
+public interface ColorRepository extends JpaRepository<Color, UUID>, JpaSpecificationExecutor<Color> {
+    boolean existsByNameAndIsDeleteFalse(String name);
 
-    boolean existsByIdAndIsDeleteFalse(Long id);
+    boolean existsByIdAndIsDeleteFalse(UUID id);
 
-    Optional<Color> findByIdAndIsDeleteFalse(Long id);
-
-    Page<Color> findAllByIsDeleteFalse(Pageable pageable);
-
-    Page<Color> findByNameContainsIgnoreCaseAndIsDeleteFalse(String name, Pageable pageable);
+    Optional<Color> findByIdAndIsDeleteFalse(UUID id);
 }

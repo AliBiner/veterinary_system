@@ -1,16 +1,16 @@
 package com.alibiner.veterinary_management_system.controllers;
 
+import java.util.*;
 import com.alibiner.config.modelMapper.IModelMapperService;
 import com.alibiner.dtos.request.color.controller.ColorCreateRequestDto;
 import com.alibiner.dtos.request.color.controller.ColorUpdateDto;
 import com.alibiner.dtos.request.color.service.ColorRequestDto;
 import com.alibiner.dtos.response.color.ColorResponseDto;
 import com.alibiner.interfaces.color.IColorService;
+import com.alibiner.specifications.color.ColorSearchCriteria;
+import com.alibiner.specifications.color.ColorSpecification;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -46,36 +46,29 @@ public class ColorController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Result<Void>> delete(
-            @PathVariable(name = "id", required = false)
-            @Min(value = 1, message = "Id not be negative or zero")
-            @NotNull(message = "Id can not be null")
-            Long id
+            @PathVariable
+            UUID id
     ) {
         colorService.delete(id);
         return ResponseEntity.ok(Result.ok());
     }
 
     @GetMapping
-    public ResponseEntity<Result<Page<ColorResponseDto>>> getAll(Pageable pageable) {
-        Page<ColorResponseDto> result = colorService.getAll(pageable);
+    public ResponseEntity<Result<Page<ColorResponseDto>>> getAll(
+            @RequestParam(name = "name", required = false)
+            String name,
+            Pageable pageable) {
+        ColorSpecification specification = new ColorSpecification(new ColorSearchCriteria(name));
+        Page<ColorResponseDto> result = colorService.getAll(pageable, specification);
         return ResponseEntity.ok(Result.ok(result));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Result<ColorResponseDto>> getById(
-            @PathVariable(name = "id", required = false)
-            @Positive(message = "Id can not be negative or zero")
-            @NotNull(message = "Id can not be null")
-            long id) {
+            @PathVariable
+            UUID id) {
         ColorResponseDto result = colorService.getById(id);
         return ResponseEntity.ok(Result.ok(result));
     }
 
-    @GetMapping(params = {"name"})
-    public ResponseEntity<Result<Page<ColorResponseDto>>> getByName(
-            @RequestParam(name = "name", required = false)
-            String name, Pageable pageable) {
-        Page<ColorResponseDto> result = colorService.getByName(name, pageable);
-        return ResponseEntity.ok(Result.ok(result));
-    }
 }
