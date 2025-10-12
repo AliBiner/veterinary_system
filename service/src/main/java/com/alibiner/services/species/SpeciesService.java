@@ -48,8 +48,12 @@ public class SpeciesService implements ISpeciesService {
     }
 
     @Override
-    public void delete(Long aLong) {
-
+    public void delete(Long id) {
+        Optional<Species> species = speciesRepository.findByIdAndIsDeleteFalse(id);
+        if (species.isEmpty())
+            throw new NotFoundException("Species not found");
+        species.get().setDelete(true);
+        speciesRepository.save(species.get());
     }
 
     @Override

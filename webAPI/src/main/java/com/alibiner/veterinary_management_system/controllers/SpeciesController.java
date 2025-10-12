@@ -8,6 +8,7 @@ import com.alibiner.dtos.response.species.SpeciesResponseDto;
 import com.alibiner.interfaces.species.ISpeciesService;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,15 @@ public class SpeciesController {
         SpeciesRequestDto mappedRequest = modelMapperService.forRequest().map(requestDto, SpeciesRequestDto.class);
         SpeciesResponseDto result = speciesService.update(mappedRequest);
         return ResponseEntity.ok(Result.ok(result));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result<Void>> delete(
+            @PathVariable
+            @Positive(message = "id must be positive")
+            long id
+    ) {
+        speciesService.delete(id);
+        return ResponseEntity.ok(Result.ok());
     }
 }
