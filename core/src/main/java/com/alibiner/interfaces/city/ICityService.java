@@ -8,6 +8,4 @@ import com.alibiner.specifications.city.CitySpecification;
 
 public interface ICityService extends ICRUDService<CityRequestDto, CityResponseDto, CitySpecification> {
 
-//    Page<CityResponseDto> getByName(String name, Pageable pageable);
-
 }
