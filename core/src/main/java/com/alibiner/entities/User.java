@@ -12,7 +12,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "users",
+        indexes = {
+                @Index(name = "phone_unique_index", columnList = "phone, isDelete", unique = true),
+                @Index(name = "mail_unique_index", columnList = "mail, isDelete", unique = true)
+        })
 @NoArgsConstructor
 public class User extends BaseEntity {
 
@@ -24,10 +28,10 @@ public class User extends BaseEntity {
     @Column(name = "user_name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "user_phone", nullable = false, length = 10, unique = true)
+    @Column(name = "user_phone", nullable = false, length = 10)
     private String phone;
 
-    @Column(name = "user_mail", nullable = false, unique = true)
+    @Column(name = "user_mail", nullable = false)
     private String mail;
 
     @Column(name = "user_address", nullable = false)
