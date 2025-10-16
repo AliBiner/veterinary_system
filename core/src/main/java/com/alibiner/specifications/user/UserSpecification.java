@@ -21,18 +21,28 @@ public class UserSpecification implements Specification<User> {
         List<Predicate> predicates = new ArrayList<>();
 
         if (criteria != null) {
+            List<Predicate> orPredicates = new ArrayList<>();
             if (criteria.getName() != null && !criteria.getName().isEmpty())
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteria.getName().toLowerCase() + "%"));
+                orPredicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteria.getName().toLowerCase() + "%"));
             if (criteria.getPhone() != null && !criteria.getPhone().isEmpty())
-                predicates.add(criteriaBuilder.like(root.get("phone"), "%" + criteria.getPhone() + "%"));
+                orPredicates.add(criteriaBuilder.like(root.get("phone"), "%" + criteria.getPhone() + "%"));
             if (criteria.getMail() != null && !criteria.getMail().isEmpty())
-                predicates.add(criteriaBuilder.like(root.get("mail"), "%" + criteria.getMail() + "%"));
+                orPredicates.add(criteriaBuilder.like(root.get("mail"), "%" + criteria.getMail() + "%"));
+
+            predicates.add(criteriaBuilder.or(orPredicates.toArray(new Predicate[0])));
+
+
+            if (criteria.getUserType() != null)
+                predicates.add(criteriaBuilder.equal(root.get("userType"), criteria.getUserType()));
+            if (criteria.getId() != null) {
+                System.out.println("id criteria");
+                predicates.add(criteriaBuilder.notEqual(root.get("id"), criteria.getId()));
+            }
+
+
+            predicates.add(criteriaBuilder.isFalse(root.get("isDelete")));
         }
 
-        Predicate orPredicates = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
-
-        Predicate isDelete = criteriaBuilder.isFalse(root.get("isDelete"));
-
-        return criteriaBuilder.and(orPredicates, isDelete);
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }
