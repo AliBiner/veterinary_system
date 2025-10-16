@@ -36,10 +36,7 @@ public class CustomerService implements IUserService<CustomerRequestDto, Custome
 
     @Override
     public CustomerResponseDto create(CustomerRequestDto dto) {
-        UserSpecification specification = new UserSpecification(new UserSearchCriteria(null, dto.getPhone(), dto.getMail()));
-
-        if (userRepository.exists(specification))
-            throw new AlreadyExistException("User phone or mail already exists!");
+        validateAlreadyExists(null, dto.getPhone(), dto.getMail());
 
         CityResponseDto cityResponse = cityService.getById(dto.getCityId());
 
@@ -57,7 +54,29 @@ public class CustomerService implements IUserService<CustomerRequestDto, Custome
 
     @Override
     public CustomerResponseDto update(CustomerRequestDto dto) {
-        return null;
+        Optional<User> user = userRepository.findByIdAndIsDeleteFalseAndUserType(dto.getId(), UserType.CUSTOMER);
+
+        if (user.isEmpty())
+            throw new NotFoundException("Customer not found");
+
+
+        validateAlreadyExists(dto.getId(), dto.getPhone(), dto.getMail());
+
+        CityResponseDto cityResponse = cityService.getById(dto.getCityId());
+
+        City city = new City();
+        city.setId(cityResponse.getId());
+        city.setName(cityResponse.getName());
+
+        user.get().setName(dto.getName());
+        user.get().setPhone(dto.getPhone());
+        user.get().setMail(dto.getMail());
+        user.get().setAddress(dto.getAddress());
+        user.get().setCity(city);
+
+        userRepository.save(user.get());
+
+        return CustomerMapper.toCustomerResponseDto(user.get());
     }
 
     @Override
@@ -76,5 +95,12 @@ public class CustomerService implements IUserService<CustomerRequestDto, Custome
     @Override
     public Page<CustomerResponseDto> getAll(Pageable pageable, UserSpecification specification) {
         return null;
+    }
+
+    private void validateAlreadyExists(UUID id, String phone, String mail) {
+        System.out.println(id);
+        UserSpecification specification = new UserSpecification(new UserSearchCriteria(id, null, phone, mail, UserType.CUSTOMER));
+        if (userRepository.exists(specification))
+            throw new AlreadyExistException("User phone or mail already exists!");
     }
 }

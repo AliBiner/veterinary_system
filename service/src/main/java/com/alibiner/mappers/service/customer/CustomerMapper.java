@@ -20,12 +20,22 @@ public class CustomerMapper {
     }
 
     public static User toUser(CustomerRequestDto dto) {
-        return new User(
+        if (dto.getId() == null)
+            return new User(
                 dto.getName(),
                 dto.getPhone(),
                 dto.getMail(),
                 dto.getAddress()
-        );
+            );
+        else
+            return new User(
+                    dto.getId(),
+                    dto.getName(),
+                    dto.getPhone(),
+                    dto.getMail(),
+                    dto.getAddress()
+            );
     }
+
 
 }
