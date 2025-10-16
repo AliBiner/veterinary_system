@@ -81,7 +81,12 @@ public class CustomerService implements IUserService<CustomerRequestDto, Custome
 
     @Override
     public void delete(UUID id) {
+        Optional<User> user = userRepository.findByIdAndIsDeleteFalseAndUserType(id, UserType.CUSTOMER);
+        if (user.isEmpty())
+            throw new NotFoundException("Customer not found");
 
+        user.get().setDelete(true);
+        userRepository.save(user.get());
     }
 
     @Override

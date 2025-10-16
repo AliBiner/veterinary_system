@@ -54,4 +54,10 @@ public class CustomerController {
         }
         return ResponseEntity.badRequest().body(null);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result<Void>> delete(@PathVariable UUID id) {
+        userService.delete(id);
+        return ResponseEntity.ok(Result.ok());
+    }
 }
