@@ -46,11 +46,16 @@ public class User extends BaseEntity {
 
 
     public User(String name, String phone, String mail, String address) {
+        this(null, name, phone, mail, address);
+
+    }
+
+    public User(UUID id, String name, String phone, String mail, String address) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.mail = mail;
         this.address = address;
-
     }
 
     @Override
