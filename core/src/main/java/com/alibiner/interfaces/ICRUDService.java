@@ -6,10 +6,11 @@ import com.alibiner.dtos.request.BaseRequestDto;
 import com.alibiner.dtos.response.BaseResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 
 public interface ICRUDService<D extends BaseRequestDto,
-        T extends BaseResponseDto, S> {
+        T extends BaseResponseDto, S extends Specification<?>> {
 
     T create(D dto);
 
