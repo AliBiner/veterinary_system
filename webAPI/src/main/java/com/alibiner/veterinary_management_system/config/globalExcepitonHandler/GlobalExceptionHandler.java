@@ -99,6 +99,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Result<Void>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        if (e.getMessage().contains("Required request body is missing"))
+            return ResponseEntity.badRequest().body(Result.badRequest("Required request body is missing"));
         return ResponseEntity.badRequest().body(Result.badRequest(e.getMessage()));
     }
 
