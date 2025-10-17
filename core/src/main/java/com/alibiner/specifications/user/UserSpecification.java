@@ -21,15 +21,12 @@ public class UserSpecification implements Specification<User> {
         List<Predicate> predicates = new ArrayList<>();
 
         if (criteria != null) {
-            List<Predicate> orPredicates = new ArrayList<>();
             if (criteria.getName() != null && !criteria.getName().isEmpty())
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteria.getName().toLowerCase() + "%"));
             if (criteria.getPhone() != null && !criteria.getPhone().isEmpty())
                 predicates.add(criteriaBuilder.like(root.get("phone"), "%" + criteria.getPhone() + "%"));
             if (criteria.getMail() != null && !criteria.getMail().isEmpty())
                 predicates.add(criteriaBuilder.like(root.get("mail"), "%" + criteria.getMail() + "%"));
-
-            predicates.add(criteriaBuilder.or(orPredicates.toArray(new Predicate[0])));
 
 
             if (criteria.getUserType() != null)
