@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ColorRequestDto extends BaseRequestDto {
+public class ColorRequestDto implements BaseRequestDto {
     private UUID id;
     private String name;
 }

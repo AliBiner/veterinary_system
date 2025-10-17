@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CityRequestDto extends BaseRequestDto {
+public class CityRequestDto implements BaseRequestDto {
     private UUID id;
     private String name;
 

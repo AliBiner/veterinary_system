@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SpeciesRequestDto extends BaseRequestDto {
+public class SpeciesRequestDto implements BaseRequestDto {
     private UUID id;
     private String name;
 }
