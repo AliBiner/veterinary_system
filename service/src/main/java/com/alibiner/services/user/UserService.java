@@ -13,10 +13,11 @@ import com.alibiner.interfaces.city.ICityService;
 import com.alibiner.interfaces.user.IUserService;
 import com.alibiner.mappers.service.customer.CustomerMapper;
 import com.alibiner.repositories.UserRepository;
-import com.alibiner.specifications.user.UserSearchCriteria;
 import com.alibiner.specifications.user.UserSpecification;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,23 @@ public class UserService implements IUserService<UserRequestDto, UserResponseDto
     }
 
     private void validateAlreadyExists(UUID id, String phone, String mail, UserType userType) {
-        UserSpecification specification = new UserSpecification(new UserSearchCriteria(id, null, phone, mail, userType));
+
+        Specification<User> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (id != null)
+                predicates.add(criteriaBuilder.notEqual(root.get("id"), id));
+            predicates.add(criteriaBuilder.equal(root.get("userType"), userType));
+
+            Predicate phonePredicate = criteriaBuilder.equal(root.get("phone"), phone);
+            Predicate mailPredicate = criteriaBuilder.equal(root.get("mail"), mail);
+            Predicate or = criteriaBuilder.or(phonePredicate, mailPredicate);
+            predicates.add(or);
+            predicates.add(criteriaBuilder.isFalse(root.get("isDelete")));
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
         if (userRepository.exists(specification))
             throw new AlreadyExistException(userType + " phone or mail already exists!");
 
