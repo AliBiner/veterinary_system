@@ -1,14 +1,14 @@
 package com.alibiner.mappers.service.customer;
 
 
-import com.alibiner.dtos.request.customer.service.CustomerRequestDto;
-import com.alibiner.dtos.response.customer.CustomerResponseDto;
+import com.alibiner.dtos.request.user.UserRequestDto;
+import com.alibiner.dtos.response.user.UserResponseDto;
 import com.alibiner.entities.User;
 
 public class CustomerMapper {
 
-    public static CustomerResponseDto toCustomerResponseDto(User user) {
-        return new CustomerResponseDto(
+    public static UserResponseDto toUserResponseDto(User user) {
+        return new UserResponseDto(
                 user.getId(),
                 user.getName(),
                 user.getPhone(),
@@ -19,13 +19,14 @@ public class CustomerMapper {
         );
     }
 
-    public static User toUser(CustomerRequestDto dto) {
+    public static User toUser(UserRequestDto dto) {
         if (dto.getId() == null)
             return new User(
                 dto.getName(),
                 dto.getPhone(),
                 dto.getMail(),
-                dto.getAddress()
+                    dto.getAddress(),
+                    dto.getUserType()
             );
         else
             return new User(
@@ -33,7 +34,8 @@ public class CustomerMapper {
                     dto.getName(),
                     dto.getPhone(),
                     dto.getMail(),
-                    dto.getAddress()
+                    dto.getAddress(),
+                    dto.getUserType()
             );
     }
 

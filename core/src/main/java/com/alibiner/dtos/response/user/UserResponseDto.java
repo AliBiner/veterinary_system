@@ -1,5 +1,4 @@
-package com.alibiner.dtos.response.customer;
-
+package com.alibiner.dtos.response.user;
 
 import java.util.*;
 import com.alibiner.dtos.response.BaseResponseDto;
@@ -9,7 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CustomerResponseDto extends BaseResponseDto {
+public class UserResponseDto extends BaseResponseDto {
     private UUID id;
     private String name;
     private String phone;

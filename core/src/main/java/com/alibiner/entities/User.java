@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "users",
         indexes = {
-                @Index(name = "phone_unique_index", columnList = "phone, isDelete", unique = true),
-                @Index(name = "mail_unique_index", columnList = "mail, isDelete", unique = true)
+                @Index(name = "phone_unique_index", columnList = "phone, userType, isDelete", unique = true),
+                @Index(name = "mail_unique_index", columnList = "mail, userType, isDelete", unique = true),
         })
 @NoArgsConstructor
 public class User extends BaseEntity {
@@ -49,17 +49,18 @@ public class User extends BaseEntity {
     private UserType userType;
 
 
-    public User(String name, String phone, String mail, String address) {
-        this(null, name, phone, mail, address);
+    public User(String name, String phone, String mail, String address, UserType userType) {
+        this(null, name, phone, mail, address, userType);
 
     }
 
-    public User(UUID id, String name, String phone, String mail, String address) {
+    public User(UUID id, String name, String phone, String mail, String address, UserType userType) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.mail = mail;
         this.address = address;
+        this.userType = userType;
     }
 
     @Override

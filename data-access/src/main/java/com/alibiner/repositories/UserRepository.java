@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface UserRepository extends JpaRepository<User, UUID>, JpaSpecificationExecutor<User> {
 
     Optional<User> findByIdAndIsDeleteFalseAndUserType(UUID id, UserType userType);
-
 }
