@@ -99,13 +99,14 @@ public class CustomerService implements IUserService<CustomerRequestDto, Custome
 
     @Override
     public Page<CustomerResponseDto> getAll(Pageable pageable, UserSpecification specification) {
-        return null;
+        Page<User> customers = userRepository.findAll(specification, pageable);
+        return customers.map(CustomerMapper::toCustomerResponseDto);
     }
 
     private void validateAlreadyExists(UUID id, String phone, String mail) {
-        System.out.println(id);
         UserSpecification specification = new UserSpecification(new UserSearchCriteria(id, null, phone, mail, UserType.CUSTOMER));
         if (userRepository.exists(specification))
             throw new AlreadyExistException("User phone or mail already exists!");
+
     }
 }

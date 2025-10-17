@@ -5,11 +5,16 @@ import com.alibiner.dtos.request.customer.controller.CustomerCreateRequestDto;
 import com.alibiner.dtos.request.customer.controller.CustomerUpdateRequestDto;
 import com.alibiner.dtos.request.customer.service.CustomerRequestDto;
 import com.alibiner.dtos.response.customer.CustomerResponseDto;
+import com.alibiner.enums.UserType;
 import com.alibiner.interfaces.user.IUserService;
+import com.alibiner.specifications.user.UserSearchCriteria;
+import com.alibiner.specifications.user.UserSpecification;
 import com.alibiner.veterinary_management_system.mappers.controller.customer.CustomerMapper;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -59,5 +64,26 @@ public class CustomerController {
     public ResponseEntity<Result<Void>> delete(@PathVariable UUID id) {
         userService.delete(id);
         return ResponseEntity.ok(Result.ok());
+    }
+
+    @GetMapping
+    public ResponseEntity<Result<Page<CustomerResponseDto>>> getAll(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String mail,
+            Pageable pageable) {
+        UserSpecification specification = new UserSpecification(
+                new UserSearchCriteria(
+                        name,
+                        phone,
+                        mail,
+                        UserType.CUSTOMER
+                )
+        );
+
+        Page<CustomerResponseDto> customers = userService.getAll(pageable, specification);
+
+        return ResponseEntity.ok(Result.ok(customers));
+
     }
 }
