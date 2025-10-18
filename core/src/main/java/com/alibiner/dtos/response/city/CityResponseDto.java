@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CityResponseDto extends BaseResponseDto {
+public class CityResponseDto implements BaseResponseDto {
     private UUID id;
     private String name;
 }

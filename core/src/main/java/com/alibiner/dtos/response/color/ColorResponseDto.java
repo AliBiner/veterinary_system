@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ColorResponseDto extends BaseResponseDto {
+public class ColorResponseDto implements BaseResponseDto {
     private UUID id;
     private String name;
 }

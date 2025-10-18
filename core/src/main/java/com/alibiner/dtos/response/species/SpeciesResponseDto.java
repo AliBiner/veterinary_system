@@ -5,7 +5,7 @@ import com.alibiner.dtos.response.BaseResponseDto;
 import lombok.Data;
 
 @Data
-public class SpeciesResponseDto extends BaseResponseDto {
+public class SpeciesResponseDto implements BaseResponseDto {
     private UUID id;
     private String name;
 }
