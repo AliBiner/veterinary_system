@@ -5,7 +5,7 @@ import com.alibiner.dtos.request.user.UserRequestDto;
 import com.alibiner.dtos.response.user.UserResponseDto;
 import com.alibiner.entities.User;
 
-public class CustomerMapper {
+public class UserMapper {
 
     public static UserResponseDto toUserResponseDto(User user) {
         return new UserResponseDto(
@@ -35,6 +35,17 @@ public class CustomerMapper {
                     dto.getPhone(),
                     dto.getMail(),
                     dto.getAddress(),
+                    dto.getUserType()
+            );
+    }
+
+    public static User toUser(UserResponseDto dto) {
+        return new User(
+                dto.getId(),
+                dto.getName(),
+                dto.getPhone(),
+                dto.getMail(),
+                dto.getAddress(),
                     dto.getUserType()
             );
     }

@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserResponseDto extends BaseResponseDto {
+public class UserResponseDto implements BaseResponseDto {
     private UUID id;
     private String name;
     private String phone;

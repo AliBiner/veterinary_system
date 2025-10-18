@@ -11,7 +11,7 @@ import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.city.ICityService;
 import com.alibiner.interfaces.user.IUserService;
-import com.alibiner.mappers.service.customer.CustomerMapper;
+import com.alibiner.mappers.service.customer.UserMapper;
 import com.alibiner.repositories.UserRepository;
 import com.alibiner.specifications.user.UserSpecification;
 import jakarta.persistence.criteria.Predicate;
@@ -42,11 +42,11 @@ public class UserService implements IUserService<UserRequestDto, UserResponseDto
         city.setId(cityResponse.getId());
         city.setName(cityResponse.getName());
 
-        User user = CustomerMapper.toUser(dto);
+        User user = UserMapper.toUser(dto);
         user.setCity(city);
 
         userRepository.save(user);
-        return CustomerMapper.toUserResponseDto(user);
+        return UserMapper.toUserResponseDto(user);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class UserService implements IUserService<UserRequestDto, UserResponseDto
 
         userRepository.save(user.get());
 
-        return CustomerMapper.toUserResponseDto(user.get());
+        return UserMapper.toUserResponseDto(user.get());
     }
 
     @Override
@@ -90,13 +90,13 @@ public class UserService implements IUserService<UserRequestDto, UserResponseDto
         Optional<User> user = userRepository.findByIdAndIsDeleteFalseAndUserType(id, userType);
         if (user.isEmpty())
             throw new NotFoundException(userType + " not found");
-        return CustomerMapper.toUserResponseDto(user.get());
+        return UserMapper.toUserResponseDto(user.get());
     }
 
     @Override
     public Page<UserResponseDto> getAll(Pageable pageable, UserSpecification specification) {
         Page<User> customers = userRepository.findAll(specification, pageable);
-        return customers.map(CustomerMapper::toUserResponseDto);
+        return customers.map(UserMapper::toUserResponseDto);
     }
 
     private void validateAlreadyExists(UUID id, String phone, String mail, UserType userType) {
