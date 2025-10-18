@@ -3,13 +3,15 @@ package com.alibiner.entities;
 import java.util.*;
 import com.alibiner.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "animals")
-@Data
+@Getter
+@Setter
 public class Animal extends BaseEntity {
 
     @Id
