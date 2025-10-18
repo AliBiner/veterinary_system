@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Result<Void>> handleNotFoundException(NotFoundException e) {
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Result.badRequest(e.getMessage()));
     }
 
     @ExceptionHandler(AlreadyExistException.class)
