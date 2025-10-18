@@ -24,4 +24,7 @@ public class Color extends BaseEntity {
 
     @Column(name = "is_delete", columnDefinition = "boolean default false")
     private boolean isDelete = false;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "color")
+    private List<Animal> animals;
 }

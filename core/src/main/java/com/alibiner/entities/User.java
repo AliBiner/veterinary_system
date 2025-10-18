@@ -48,6 +48,9 @@ public class User extends BaseEntity {
     @Convert(converter = UserTypeConverter.class)
     private UserType userType;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Animal> animals;
+
 
     public User(String name, String phone, String mail, String address, UserType userType) {
         this(null, name, phone, mail, address, userType);
