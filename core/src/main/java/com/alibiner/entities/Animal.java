@@ -46,4 +46,7 @@ public class Animal extends BaseEntity {
 
     @Column(name = "is_delete", nullable = false, columnDefinition = "boolean default false")
     private boolean isDelete = false;
+
+    @OneToMany(mappedBy = "animal")
+    List<Appointment> appointments;
 }

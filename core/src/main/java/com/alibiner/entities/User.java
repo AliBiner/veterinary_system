@@ -54,6 +54,9 @@ public class User extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<AvailableDate> availableDates;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    List<Appointment> appointments;
+
 
     public User(String name, String phone, String mail, String address, UserType userType) {
         this(null, name, phone, mail, address, userType);
