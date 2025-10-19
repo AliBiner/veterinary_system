@@ -5,6 +5,7 @@ import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,8 +93,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Result.conflict(e.getMessage()));
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Result<Void>> handleIllegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler({IllegalArgumentException.class, InvalidDataAccessApiUsageException.class})
+    public ResponseEntity<Result<Void>> handleIllegalArgumentException(RuntimeException e) {
         return ResponseEntity.badRequest().body(Result.badRequest(e.getMessage()));
     }
 

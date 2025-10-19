@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "users",
         indexes = {
-                @Index(name = "phone_unique_index", columnList = "phone, userType, isDelete", unique = true),
-                @Index(name = "mail_unique_index", columnList = "mail, userType, isDelete", unique = true),
+                @Index(name = "phone_unique_index", columnList = "user_phone, user_type, is_delete", unique = true),
+                @Index(name = "mail_unique_index", columnList = "user_mail, user_type, is_delete", unique = true),
         })
 @NoArgsConstructor
 public class User extends BaseEntity {
@@ -50,6 +50,9 @@ public class User extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Animal> animals;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<AvailableDate> availableDates;
 
 
     public User(String name, String phone, String mail, String address, UserType userType) {
