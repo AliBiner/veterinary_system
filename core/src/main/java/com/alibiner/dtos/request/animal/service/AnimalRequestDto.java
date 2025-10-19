@@ -4,6 +4,7 @@ package com.alibiner.dtos.request.animal.service;
 import java.util.*;
 import com.alibiner.dtos.request.BaseRequestDto;
 import com.alibiner.enums.Gender;
+import com.alibiner.errorMessages.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -13,25 +14,25 @@ import java.time.LocalDate;
 public class AnimalRequestDto implements BaseRequestDto {
     private UUID id;
 
-    @NotNull(message = "animal name can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private String name;
 
-    @NotNull(message = "animal species id can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private UUID speciesId;
 
-    @NotNull(message = "animal breed can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private String breed;
 
-    @NotNull(message = "animal gender can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private Gender gender;
 
-    @NotNull(message = "animal birth of date can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private LocalDate birthOfDate;
 
-    @NotNull(message = "animal color id can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private UUID colorId;
 
-    @NotNull(message = "animal user id can not be null")
+    @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private UUID userId;
 
 }
