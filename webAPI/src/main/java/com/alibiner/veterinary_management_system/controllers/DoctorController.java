@@ -8,10 +8,11 @@ import com.alibiner.dtos.request.user.customer.controller.CustomerUpdateRequestD
 import com.alibiner.dtos.response.availableDate.AvailableDateResponseDto;
 import com.alibiner.dtos.response.user.UserResponseDto;
 import com.alibiner.enums.UserType;
+import com.alibiner.errorMessages.ErrorMessages;
 import com.alibiner.interfaces.user.IUserService;
 import com.alibiner.interfaces.user.doctor.IDoctorService;
-import com.alibiner.specifications.availableDate.AvailableDateSearchCriteria;
-import com.alibiner.specifications.availableDate.AvailableDateSpecification;
+import com.alibiner.specifications.availableDate.search.AvailableDateSearchCriteria;
+import com.alibiner.specifications.availableDate.search.AvailableDateSpecification;
 import com.alibiner.specifications.user.UserSearchCriteria;
 import com.alibiner.specifications.user.UserSpecification;
 import com.alibiner.veterinary_management_system.result.Result;
@@ -101,13 +102,12 @@ public class DoctorController {
     @GetMapping("/{id}/available-dates")
     public ResponseEntity<Result<Page<AvailableDateResponseDto>>> getAllAvailableDateByDoctorId(
             @PathVariable(name = "id") UUID id,
-            @RequestParam(name = "min-date", required = false) @FutureOrPresent(message = "min-date must be future or present") LocalDate minDate,
-            @RequestParam(name = "max-date", required = false) @FutureOrPresent(message = "max-date must be future or present") LocalDate maxDate,
+            @RequestParam(name = "min-date", required = false) @FutureOrPresent(message = ErrorMessages.ValidationMessages.MIN_DATE_MUST_FUTURE) LocalDate minDate,
+            @RequestParam(name = "max-date", required = false) @FutureOrPresent(message = ErrorMessages.ValidationMessages.MAX_DATE_MUST_FUTURE) LocalDate maxDate,
             Pageable pageable
     ) {
-        System.out.println("controller'da");
         if (minDate != null && maxDate != null && minDate.isAfter(maxDate))
-            throw new IllegalArgumentException("must be max-date greater than min-date");
+            throw new IllegalArgumentException(ErrorMessages.ValidationMessages.MIN_DATE_GREATER_MAX_DATE);
         AvailableDateSpecification spec = new AvailableDateSpecification(new AvailableDateSearchCriteria(id, minDate,
                 maxDate));
         System.out.println(spec);

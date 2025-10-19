@@ -3,9 +3,10 @@ package com.alibiner.veterinary_management_system.controllers;
 import java.util.*;
 import com.alibiner.dtos.response.availableDate.AvailableDateResponseDto;
 import com.alibiner.entities.AvailableDate;
+import com.alibiner.errorMessages.ErrorMessages;
 import com.alibiner.interfaces.availableDate.IAvailableDateService;
-import com.alibiner.specifications.availableDate.AvailableDateSearchCriteria;
-import com.alibiner.specifications.availableDate.AvailableDateSpecification;
+import com.alibiner.specifications.availableDate.search.AvailableDateSearchCriteria;
+import com.alibiner.specifications.availableDate.search.AvailableDateSpecification;
 import com.alibiner.veterinary_management_system.constants.ConstantValues;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -63,11 +64,11 @@ public class AvailableDateController {
 
     @GetMapping
     public ResponseEntity<Result<Page<AvailableDateResponseDto>>> getAllActive(
-            @RequestParam(name = "min-date", required = false) @FutureOrPresent(message = "min-date must be future or present") LocalDate minDate,
-            @RequestParam(name = "max-date", required = false) @FutureOrPresent(message = "max-date must be future or present") LocalDate maxDate,
+            @RequestParam(name = "min-date", required = false) @FutureOrPresent(message = ErrorMessages.ValidationMessages.MIN_DATE_MUST_FUTURE) LocalDate minDate,
+            @RequestParam(name = "max-date", required = false) @FutureOrPresent(message = ErrorMessages.ValidationMessages.MAX_DATE_MUST_FUTURE) LocalDate maxDate,
             Pageable pageable) {
         if (minDate != null && maxDate != null && minDate.isAfter(maxDate))
-            throw new IllegalArgumentException("must be max-date greater than min-date");
+            throw new IllegalArgumentException(ErrorMessages.ValidationMessages.MIN_DATE_GREATER_MAX_DATE);
 
 
         Specification<AvailableDate> specification = new AvailableDateSpecification(new AvailableDateSearchCriteria(minDate, maxDate));
