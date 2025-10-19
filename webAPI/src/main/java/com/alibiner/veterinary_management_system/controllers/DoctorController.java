@@ -110,7 +110,6 @@ public class DoctorController {
             throw new IllegalArgumentException(ErrorMessages.ValidationMessages.MIN_DATE_GREATER_MAX_DATE);
         AvailableDateSpecification spec = new AvailableDateSpecification(new AvailableDateSearchCriteria(id, minDate,
                 maxDate));
-        System.out.println(spec);
         Page<AvailableDateResponseDto> result = doctorService.getAllAvailableDate(id, spec, pageable);
         return ResponseEntity.ok(Result.ok(result));
     }

@@ -38,7 +38,6 @@ public class CityController {
 
     @PutMapping
     public ResponseEntity<Result<CityResponseDto>> update(@Valid @RequestBody CityUpdateRequestDto request) {
-        System.out.println(request);
         CityRequestDto serviceRequest = modelMapperService.forRequest().map(request, CityRequestDto.class);
         CityResponseDto result = cityService.update(serviceRequest);
         return ResponseEntity.ok(Result.ok(result));

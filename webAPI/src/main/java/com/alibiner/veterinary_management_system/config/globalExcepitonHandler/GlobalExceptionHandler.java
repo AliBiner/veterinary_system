@@ -2,6 +2,7 @@ package com.alibiner.veterinary_management_system.config.globalExcepitonHandler;
 
 import java.util.*;
 import com.alibiner.exceptions.AlreadyExistException;
+import com.alibiner.exceptions.NotAvailable;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.ConstraintViolationException;
@@ -23,6 +24,11 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(NotAvailable.class)
+    public ResponseEntity<Result<Void>> handleNotAvailable(NotAvailable e) {
+        return ResponseEntity.badRequest().body(Result.badRequest(e.getMessage()));
+    }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Result<Void>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {

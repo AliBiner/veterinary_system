@@ -32,7 +32,6 @@ public class UserSpecification implements Specification<User> {
             if (criteria.getUserType() != null)
                 predicates.add(criteriaBuilder.equal(root.get("userType"), criteria.getUserType()));
             if (criteria.getId() != null) {
-                System.out.println("id criteria");
                 predicates.add(criteriaBuilder.notEqual(root.get("id"), criteria.getId()));
             }
 

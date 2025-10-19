@@ -125,7 +125,7 @@ public class UserServiceI implements IUserService<UserRequestDto, UserResponseDt
     }
 
     @Override
-    public void verifyDoctor(UUID doctorId) {
+    public void verify(UUID doctorId) {
         final UserType canHaveAvailableDate = UserType.DOCTOR;
         getById(doctorId, canHaveAvailableDate);
     }

@@ -1,4 +1,4 @@
-package com.alibiner.specifications.availableDate;
+package com.alibiner.specifications.availableDate.search;
 
 import java.util.*;
 import lombok.AllArgsConstructor;

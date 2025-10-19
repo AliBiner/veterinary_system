@@ -12,6 +12,7 @@ import com.alibiner.entities.User;
 import com.alibiner.enums.UserType;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.animal.IAnimalService;
+import com.alibiner.interfaces.animal.IAnimalVerificationService;
 import com.alibiner.interfaces.color.IColorService;
 import com.alibiner.interfaces.species.ISpeciesService;
 import com.alibiner.interfaces.user.IUserService;
@@ -28,7 +29,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AnimalService implements IAnimalService {
+public class AnimalService implements IAnimalService, IAnimalVerificationService {
     private final AnimalRepository animalRepository;
     private final ISpeciesService speciesService;
     private final IColorService colorService;
@@ -128,5 +129,12 @@ public class AnimalService implements IAnimalService {
             throw new NotFoundException("animal not found");
 
         return animal.get();
+    }
+
+    @Override
+    public void verify(UUID animalId) {
+        AnimalResponseDto animal = getById(animalId);
+        if (animal.getOwnerId() == null)
+            throw new NotFoundException(NotFoundException.HAVE_NOT_OWN);
     }
 }
