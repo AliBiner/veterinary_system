@@ -78,6 +78,7 @@ public class User extends BaseEntity {
                 ", mail='" + mail + '\'' +
                 ", address='" + address + '\'' +
                 ", isDelete=" + isDelete +
+                ", userType=" + userType +
                 '}';
     }
 }

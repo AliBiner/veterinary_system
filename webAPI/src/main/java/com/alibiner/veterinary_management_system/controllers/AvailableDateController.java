@@ -2,6 +2,7 @@ package com.alibiner.veterinary_management_system.controllers;
 
 import java.util.*;
 import com.alibiner.dtos.response.availableDate.AvailableDateResponseDto;
+import com.alibiner.entities.AvailableDate;
 import com.alibiner.interfaces.availableDate.IAvailableDateService;
 import com.alibiner.specifications.availableDate.AvailableDateSearchCriteria;
 import com.alibiner.specifications.availableDate.AvailableDateSpecification;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +70,7 @@ public class AvailableDateController {
             throw new IllegalArgumentException("must be max-date greater than min-date");
 
 
-        AvailableDateSpecification specification = new AvailableDateSpecification(new AvailableDateSearchCriteria(minDate, maxDate));
+        Specification<AvailableDate> specification = new AvailableDateSpecification(new AvailableDateSearchCriteria(minDate, maxDate));
 
         Page<AvailableDateResponseDto> result = availableDateService.getAll(pageable, specification);
         return ResponseEntity.ok(Result.ok(result));

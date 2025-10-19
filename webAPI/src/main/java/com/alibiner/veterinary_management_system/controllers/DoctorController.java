@@ -5,18 +5,25 @@ import com.alibiner.dtos.request.user.UserRequestDto;
 import com.alibiner.dtos.request.user.UserRequestFactory;
 import com.alibiner.dtos.request.user.customer.controller.CustomerCreateRequestDto;
 import com.alibiner.dtos.request.user.customer.controller.CustomerUpdateRequestDto;
+import com.alibiner.dtos.response.availableDate.AvailableDateResponseDto;
 import com.alibiner.dtos.response.user.UserResponseDto;
 import com.alibiner.enums.UserType;
 import com.alibiner.interfaces.user.IUserService;
+import com.alibiner.interfaces.user.doctor.IDoctorService;
+import com.alibiner.specifications.availableDate.AvailableDateSearchCriteria;
+import com.alibiner.specifications.availableDate.AvailableDateSpecification;
 import com.alibiner.specifications.user.UserSearchCriteria;
 import com.alibiner.specifications.user.UserSpecification;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.FutureOrPresent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/v1/doctors")
@@ -24,10 +31,13 @@ import org.springframework.web.bind.annotation.*;
 public class DoctorController {
 
     private final static UserType userType = UserType.DOCTOR;
-    private final IUserService userService;
+    private final IUserService<UserRequestDto, UserResponseDto, UserSpecification> userService;
+    private final IDoctorService doctorService;
 
-    public DoctorController(IUserService userService) {
+
+    public DoctorController(IUserService<UserRequestDto, UserResponseDto, UserSpecification> userService, IDoctorService doctorService) {
         this.userService = userService;
+        this.doctorService = doctorService;
     }
 
 
@@ -86,5 +96,22 @@ public class DoctorController {
 
         return ResponseEntity.ok(Result.ok(customers));
 
+    }
+
+    @GetMapping("/{id}/available-dates")
+    public ResponseEntity<Result<Page<AvailableDateResponseDto>>> getAllAvailableDateByDoctorId(
+            @PathVariable(name = "id") UUID id,
+            @RequestParam(name = "min-date", required = false) @FutureOrPresent(message = "min-date must be future or present") LocalDate minDate,
+            @RequestParam(name = "max-date", required = false) @FutureOrPresent(message = "max-date must be future or present") LocalDate maxDate,
+            Pageable pageable
+    ) {
+        System.out.println("controller'da");
+        if (minDate != null && maxDate != null && minDate.isAfter(maxDate))
+            throw new IllegalArgumentException("must be max-date greater than min-date");
+        AvailableDateSpecification spec = new AvailableDateSpecification(new AvailableDateSearchCriteria(id, minDate,
+                maxDate));
+        System.out.println(spec);
+        Page<AvailableDateResponseDto> result = doctorService.getAllAvailableDate(id, spec, pageable);
+        return ResponseEntity.ok(Result.ok(result));
     }
 }

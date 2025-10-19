@@ -1,5 +1,6 @@
 package com.alibiner.specifications.availableDate;
 
+import java.util.*;
 import com.alibiner.entities.AvailableDate;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -20,17 +21,19 @@ public class AvailableDateSpecification implements Specification<AvailableDate> 
 
     @Override
     public Predicate toPredicate(@NonNull Root<AvailableDate> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
-        Predicate predicate = null;
+        List<Predicate> predicates = new ArrayList<>();
         if (criteria != null) {
             if (criteria.getMinDate() == null && criteria.getMaxDate() == null) {
-                return predicate;
+
             } else if (criteria.getMinDate() != null && criteria.getMaxDate() == null)
-                predicate = criteriaBuilder.greaterThanOrEqualTo(root.get("availableDate"), criteria.getMinDate());
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("availableDate"), criteria.getMinDate()));
             else if (criteria.getMinDate() == null)
-                predicate = criteriaBuilder.lessThanOrEqualTo(root.get("availableDate"), criteria.getMaxDate());
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("availableDate"), criteria.getMaxDate()));
             else
-                predicate = criteriaBuilder.between(root.get("availableDate"), criteria.getMinDate(), criteria.getMaxDate());
+                predicates.add(criteriaBuilder.between(root.get("availableDate"), criteria.getMinDate(), criteria.getMaxDate()));
+            if (criteria.getDoctorId() != null)
+                predicates.add(criteriaBuilder.equal(root.join("user").get("id"), criteria.getDoctorId()));
         }
-        return predicate;
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }

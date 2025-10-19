@@ -11,6 +11,7 @@ import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.city.ICityService;
 import com.alibiner.interfaces.user.IUserService;
+import com.alibiner.interfaces.user.doctor.IDoctorVerificationService;
 import com.alibiner.mappers.service.customer.UserMapper;
 import com.alibiner.repositories.UserRepository;
 import com.alibiner.specifications.user.UserSpecification;
@@ -22,12 +23,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements IUserService<UserRequestDto, UserResponseDto, UserSpecification> {
+public class UserServiceI implements IUserService<UserRequestDto, UserResponseDto, UserSpecification>, IDoctorVerificationService {
 
     private final UserRepository userRepository;
     private final ICityService cityService;
 
-    public UserService(UserRepository userRepository, ICityService cityService) {
+
+    public UserServiceI(UserRepository userRepository, ICityService cityService) {
         this.userRepository = userRepository;
         this.cityService = cityService;
     }
@@ -122,5 +124,9 @@ public class UserService implements IUserService<UserRequestDto, UserResponseDto
 
     }
 
-
+    @Override
+    public void verifyDoctor(UUID doctorId) {
+        final UserType canHaveAvailableDate = UserType.DOCTOR;
+        getById(doctorId, canHaveAvailableDate);
+    }
 }

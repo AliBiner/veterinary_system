@@ -13,11 +13,11 @@ import com.alibiner.interfaces.user.IUserService;
 import com.alibiner.mappers.service.availableDate.AvailableDateMapper;
 import com.alibiner.mappers.service.customer.UserMapper;
 import com.alibiner.repositories.AvailableDateRepository;
-import com.alibiner.specifications.availableDate.AvailableDateSpecification;
 import com.alibiner.specifications.user.UserSpecification;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -131,7 +131,7 @@ public class AvailableDateService implements IAvailableDateService {
 //    }
 
     @Override
-    public Page<AvailableDateResponseDto> getAll(Pageable pageable, AvailableDateSpecification specification) {
+    public Page<AvailableDateResponseDto> getAll(Pageable pageable, Specification<AvailableDate> specification) {
         return availableDateRepository.findAll(specification, pageable).map(AvailableDateMapper::toAvailableDateResponseDto);
     }
 }
