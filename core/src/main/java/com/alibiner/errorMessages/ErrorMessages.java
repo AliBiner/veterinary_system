@@ -14,4 +14,8 @@ public class ErrorMessages {
         public static final String DATE_MUST_FUTURE = "date must be future or present";
 
     }
+
+    public static class NotFoundMessages {
+        public static final String APPOINTMENT_NOT_FOUND = "appointment not found";
+    }
 }

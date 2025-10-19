@@ -4,7 +4,7 @@ package com.alibiner.enums;
 public enum AppointmentStatus {
     RESERVED(10),
     COMPLETED(20),
-    CANCELED(30);
+    CANCELLED(30);
 
     private int code;
 
@@ -21,7 +21,7 @@ public enum AppointmentStatus {
                 return COMPLETED;
             }
             case 30 -> {
-                return CANCELED;
+                return CANCELLED;
             }
             default -> {
                 return null;

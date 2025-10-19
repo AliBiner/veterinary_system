@@ -2,12 +2,16 @@ package com.alibiner.services.appointment;
 
 import java.util.*;
 import com.alibiner.dtos.request.appointment.service.AppointmentRequestDto;
+import com.alibiner.dtos.response.appointment.service.AppointmentDetailResponseDto;
 import com.alibiner.dtos.response.appointment.service.AppointmentResponseDto;
+import com.alibiner.dtos.response.appointment.service.GetAllAppointmentResponseDto;
 import com.alibiner.entities.Animal;
 import com.alibiner.entities.Appointment;
 import com.alibiner.entities.User;
 import com.alibiner.enums.AppointmentStatus;
+import com.alibiner.errorMessages.ErrorMessages;
 import com.alibiner.exceptions.NotAvailable;
+import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.animal.IAnimalVerificationService;
 import com.alibiner.interfaces.appointment.IAppointmentService;
 import com.alibiner.interfaces.user.doctor.IDoctorAvailabilityService;
@@ -42,13 +46,30 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public void cancel(UUID id) {
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
 
+        if (appointment.isEmpty())
+            throw new NotFoundException(ErrorMessages.NotFoundMessages.APPOINTMENT_NOT_FOUND);
+
+        appointment.get().setStatus(AppointmentStatus.CANCELLED);
+        appointmentRepository.save(appointment.get());
     }
 
     @Override
-    public void complete(UUID id) {
+    public AppointmentDetailResponseDto getById(UUID id) {
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+        if (appointment.isEmpty())
+            throw new NotFoundException(ErrorMessages.NotFoundMessages.APPOINTMENT_NOT_FOUND);
 
+        return AppointmentMapper.toAppointmentDetailResponseDto(appointment.get());
     }
+
+    @Override
+    public Page<GetAllAppointmentResponseDto> getAll(Pageable pageable, Specification<Appointment> specification) {
+        Page<Appointment> appointments = appointmentRepository.findAll(specification, pageable);
+        return appointments.map(AppointmentMapper::toGetAllAppointmentResponseDto);
+    }
+
 
     @Override
     public AppointmentResponseDto create(AppointmentRequestDto dto) {
@@ -67,25 +88,7 @@ public class AppointmentService implements IAppointmentService {
         return AppointmentMapper.toAppointmentResponseDto(appointment);
     }
 
-    @Override
-    public AppointmentResponseDto update(AppointmentRequestDto dto) {
-        return null;
-    }
 
-    @Override
-    public void delete(UUID id) {
-
-    }
-
-    @Override
-    public AppointmentResponseDto getById(UUID id) {
-        return null;
-    }
-
-    @Override
-    public Page<AppointmentResponseDto> getAll(Pageable pageable, Specification<Appointment> specification) {
-        return null;
-    }
 
     private void availabilityAppointment(UUID doctorId, LocalDateTime appointmentDate) {
         AppointmentVerifyCriteria criteria = new AppointmentVerifyCriteria(doctorId, appointmentDate);
@@ -136,4 +139,6 @@ public class AppointmentService implements IAppointmentService {
 
         return LocalDateTime.of(year, month, day, hour, minute);
     }
+
+
 }
