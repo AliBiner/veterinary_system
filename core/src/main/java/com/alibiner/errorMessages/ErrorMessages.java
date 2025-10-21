@@ -19,9 +19,18 @@ public class ErrorMessages {
     public static class NotFoundMessages {
         public static final String APPOINTMENT_NOT_FOUND = "appointment not found";
         public static final String VACCINE_NOT_FOUND = "vaccine not found";
+        public static final String EXAMINATION_NOT_FOUND = "examination not found";
     }
 
     public static class AlreadyExistMessages {
         public static final String VACCINE = "vaccine already exists";
+    }
+
+    public static class NotAvailableMessages {
+        public static final String EXAMINATION = "examination can not save. because vaccine cycle not available for " +
+                "this animal";
+        public static final String APPOINTMENT_CAN_NOT_PAST = "appointment date can not be past";
+        public static final String APPOINTMENT_CANCELLED = "appointment is cancelled";
+        public static final String VACCINE_NOT_ACTIVE = "vaccine is not active";
     }
 }

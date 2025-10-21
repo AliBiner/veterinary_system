@@ -14,6 +14,7 @@ import com.alibiner.exceptions.NotAvailable;
 import com.alibiner.exceptions.NotFoundException;
 import com.alibiner.interfaces.animal.IAnimalVerificationService;
 import com.alibiner.interfaces.appointment.IAppointmentService;
+import com.alibiner.interfaces.appointment.IAppointmentVerificationService;
 import com.alibiner.interfaces.user.doctor.IDoctorAvailabilityService;
 import com.alibiner.interfaces.user.doctor.IDoctorService;
 import com.alibiner.interfaces.user.doctor.IDoctorVerificationService;
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class AppointmentService implements IAppointmentService {
+public class AppointmentService implements IAppointmentService, IAppointmentVerificationService {
 
     private final IDoctorVerificationService doctorVerificationService;
     private final IAnimalVerificationService animalVerificationService;
@@ -62,6 +63,13 @@ public class AppointmentService implements IAppointmentService {
             throw new NotFoundException(ErrorMessages.NotFoundMessages.APPOINTMENT_NOT_FOUND);
 
         return AppointmentMapper.toAppointmentDetailResponseDto(appointment.get());
+    }
+
+    private Appointment getByIdAsAppointment(UUID id) {
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+        if (appointment.isEmpty())
+            throw new NotFoundException(ErrorMessages.NotFoundMessages.APPOINTMENT_NOT_FOUND);
+        return appointment.get();
     }
 
     @Override
@@ -140,5 +148,24 @@ public class AppointmentService implements IAppointmentService {
         return LocalDateTime.of(year, month, day, hour, minute);
     }
 
+
+    @Override
+    public void verify(UUID id) {
+        AppointmentDetailResponseDto appointment = getById(id);
+        if (appointment.getFinishDate().isBefore(LocalDateTime.now()))
+            throw new NotAvailable(ErrorMessages.NotAvailableMessages.APPOINTMENT_CAN_NOT_PAST);
+        if (appointment.getStatus().equals(AppointmentStatus.CANCELLED))
+            throw new NotAvailable(ErrorMessages.NotAvailableMessages.APPOINTMENT_CANCELLED);
+    }
+
+    @Override
+    public Appointment verifyAndGet(UUID id) {
+        Appointment appointment = getByIdAsAppointment(id);
+        if (appointment.getFinishDate().isBefore(LocalDateTime.now()))
+            throw new NotAvailable(ErrorMessages.NotAvailableMessages.APPOINTMENT_CAN_NOT_PAST);
+        if (appointment.getStatus().equals(AppointmentStatus.CANCELLED))
+            throw new NotAvailable(ErrorMessages.NotAvailableMessages.APPOINTMENT_CANCELLED);
+        return appointment;
+    }
 
 }

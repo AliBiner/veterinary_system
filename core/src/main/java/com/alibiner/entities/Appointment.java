@@ -47,4 +47,17 @@ public class Appointment extends BaseEntity {
 
     @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
     private List<Examination> examinations;
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", doctor=" + doctor +
+                ", animal=" + animal +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                ", status=" + status +
+                ", companionName='" + companionName + '\'' +
+                '}';
+    }
 }

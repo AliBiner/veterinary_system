@@ -3,6 +3,7 @@ package com.alibiner.entities;
 import java.util.*;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "examinations")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Examination extends BaseEntity {
 
     @Id
@@ -36,4 +38,32 @@ public class Examination extends BaseEntity {
 
     @Column(name = "examination_vaccine_flexible_date")
     private LocalDate vaccineFlexibleDate;
+
+    public Examination(Appointment appointment, Vaccine vaccine, LocalDate examinationDate) {
+        this(appointment, vaccine, examinationDate, null, null);
+    }
+
+    public Examination(Appointment appointment, Vaccine vaccine, LocalDate examinationDate, LocalDate vaccineCycleDate) {
+        this(appointment, vaccine, examinationDate, vaccineCycleDate, null);
+    }
+
+    public Examination(Appointment appointment, Vaccine vaccine, LocalDate examinationDate, LocalDate vaccineCycleDate, LocalDate vaccineFlexibleDate) {
+        this.appointment = appointment;
+        this.vaccine = vaccine;
+        this.examinationDate = examinationDate;
+        this.vaccineCycleDate = vaccineCycleDate;
+        this.vaccineFlexibleDate = vaccineFlexibleDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Examination{" +
+                "id=" + id +
+                ", appointment=" + appointment +
+                ", vaccine=" + vaccine +
+                ", examinationDate=" + examinationDate +
+                ", vaccineCycleDate=" + vaccineCycleDate +
+                ", vaccineFlexibleDate=" + vaccineFlexibleDate +
+                '}';
+    }
 }
