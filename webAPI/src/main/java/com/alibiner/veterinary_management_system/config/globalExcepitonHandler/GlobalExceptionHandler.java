@@ -4,6 +4,7 @@ import java.util.*;
 import com.alibiner.exceptions.AlreadyExistException;
 import com.alibiner.exceptions.NotAvailable;
 import com.alibiner.exceptions.NotFoundException;
+import com.alibiner.exceptions.NotSupportTypeException;
 import com.alibiner.veterinary_management_system.result.Result;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -24,6 +25,12 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(NotSupportTypeException.class)
+    public ResponseEntity<Result<Void>> handleNotSupportTypeException(NotSupportTypeException e) {
+        System.err.println(e.getMessage());
+        return ResponseEntity.internalServerError().body(Result.unexcepted());
+    }
 
     @ExceptionHandler(NotAvailable.class)
     public ResponseEntity<Result<Void>> handleNotAvailable(NotAvailable e) {

@@ -12,10 +12,16 @@ public class ErrorMessages {
         public static final String MAX_DATE_MUST_FUTURE = "max-date must be future or present";
         public static final String MIN_DATE_GREATER_MAX_DATE = "must be max-date greater than min-date";
         public static final String DATE_MUST_FUTURE = "date must be future or present";
+        public static final String POSITIVE_OR_ZERO = "must be positive or zero";
 
     }
 
     public static class NotFoundMessages {
         public static final String APPOINTMENT_NOT_FOUND = "appointment not found";
+        public static final String VACCINE_NOT_FOUND = "vaccine not found";
+    }
+
+    public static class AlreadyExistMessages {
+        public static final String VACCINE = "vaccine already exists";
     }
 }

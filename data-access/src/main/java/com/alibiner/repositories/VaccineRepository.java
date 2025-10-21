@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VaccineRepository extends JpaRepository<Vaccine, UUID>, JpaSpecificationExecutor<Vaccine> {
+    Optional<Vaccine> findByCode(String code);
 }
