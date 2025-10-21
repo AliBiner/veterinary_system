@@ -44,4 +44,7 @@ public class Appointment extends BaseEntity {
 
     @Column(name = "companion_name", length = 100)
     private String companionName;
+
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    private List<Examination> examinations;
 }

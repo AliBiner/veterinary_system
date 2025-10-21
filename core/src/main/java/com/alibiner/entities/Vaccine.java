@@ -35,6 +35,9 @@ public class Vaccine extends BaseEntity {
     @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
     private boolean isActive = true;
 
+    @OneToMany(mappedBy = "vaccine")
+    private List<Examination> examinations;
+
     public Vaccine(String name, String code) {
         this(null, name, null, code, 0, 0, true);
     }
