@@ -19,7 +19,7 @@ public class SpeciesSpecification implements Specification<Species> {
     public Predicate toPredicate(Root<Species> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (criteria != null && criteria.getName() != null && criteria.getName().isEmpty())
+        if (criteria != null && criteria.getName() != null && !criteria.getName().isEmpty())
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteria.getName().toLowerCase() + "%"));
 
         predicates.add(criteriaBuilder.isFalse(root.get("isDelete")));
