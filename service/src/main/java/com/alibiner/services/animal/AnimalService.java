@@ -68,6 +68,7 @@ public class AnimalService implements IAnimalService, IAnimalVerificationService
         Color color = findColorById(dto.getColorId());
 
         animal.setUser(user);
+        animal.setName(dto.getName());
         animal.setSpecies(species);
         animal.setColor(color);
         animal.setGender(dto.getGender());
