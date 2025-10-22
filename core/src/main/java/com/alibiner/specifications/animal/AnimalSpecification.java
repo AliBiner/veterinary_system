@@ -27,11 +27,11 @@ public class AnimalSpecification implements Specification<Animal> {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteria.getAnimalName().toLowerCase() + "%"));
 
             if (criteria.getOwnerPhone() != null && !criteria.getOwnerPhone().isEmpty())
-                predicates.add(criteriaBuilder.like(root.join("user").get("phone"), criteria.getOwnerPhone()));
+                predicates.add(criteriaBuilder.like(root.join("user").get("phone"), "%" + criteria.getOwnerPhone() + "%"));
 
 
             if (criteria.getOwnerMail() != null && !criteria.getOwnerMail().isEmpty())
-                predicates.add(criteriaBuilder.like(root.join("user").get("mail"), criteria.getOwnerMail()));
+                predicates.add(criteriaBuilder.like(root.join("user").get("mail"), "%" + criteria.getOwnerMail() + "%"));
 
             predicates.add(criteriaBuilder.isFalse(root.get("isDelete")));
         }
