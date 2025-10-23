@@ -4,13 +4,7 @@ import java.util.*;
 import com.alibiner.dtos.request.BaseRequestDto;
 import com.alibiner.errorMessages.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Data
-@Getter
-@Setter
 public class ExaminationRequestDto implements BaseRequestDto {
     private UUID id;
 
@@ -19,4 +13,31 @@ public class ExaminationRequestDto implements BaseRequestDto {
 
     @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private UUID vaccineId;
+
+    public ExaminationRequestDto() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(UUID appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public UUID getVaccineId() {
+        return vaccineId;
+    }
+
+    public void setVaccineId(UUID vaccineId) {
+        this.vaccineId = vaccineId;
+    }
 }

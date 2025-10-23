@@ -2,18 +2,12 @@ package com.alibiner.entities;
 
 import java.util.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "examinations")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Examination extends BaseEntity {
 
     @Id
@@ -39,6 +33,9 @@ public class Examination extends BaseEntity {
     @Column(name = "examination_vaccine_flexible_date")
     private LocalDate vaccineFlexibleDate;
 
+    public Examination() {
+    }
+
     public Examination(Appointment appointment, Vaccine vaccine, LocalDate examinationDate) {
         this(appointment, vaccine, examinationDate, null, null);
     }
@@ -52,6 +49,54 @@ public class Examination extends BaseEntity {
         this.vaccine = vaccine;
         this.examinationDate = examinationDate;
         this.vaccineCycleDate = vaccineCycleDate;
+        this.vaccineFlexibleDate = vaccineFlexibleDate;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+    public Vaccine getVaccine() {
+        return vaccine;
+    }
+
+    public void setVaccine(Vaccine vaccine) {
+        this.vaccine = vaccine;
+    }
+
+    public LocalDate getExaminationDate() {
+        return examinationDate;
+    }
+
+    public void setExaminationDate(LocalDate examinationDate) {
+        this.examinationDate = examinationDate;
+    }
+
+    public LocalDate getVaccineCycleDate() {
+        return vaccineCycleDate;
+    }
+
+    public void setVaccineCycleDate(LocalDate vaccineCycleDate) {
+        this.vaccineCycleDate = vaccineCycleDate;
+    }
+
+    public LocalDate getVaccineFlexibleDate() {
+        return vaccineFlexibleDate;
+    }
+
+    public void setVaccineFlexibleDate(LocalDate vaccineFlexibleDate) {
         this.vaccineFlexibleDate = vaccineFlexibleDate;
     }
 

@@ -2,15 +2,9 @@ package com.alibiner.entities;
 
 import java.util.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "vaccines")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Vaccine extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,6 +32,9 @@ public class Vaccine extends BaseEntity {
     @OneToMany(mappedBy = "vaccine")
     private List<Examination> examinations;
 
+    public Vaccine() {
+    }
+
     public Vaccine(String name, String code) {
         this(null, name, null, code, 0, 0, true);
     }
@@ -62,5 +59,65 @@ public class Vaccine extends BaseEntity {
 
     public void setCode(String code) {
         this.code = code.toUpperCase();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public int getVaccineCycle() {
+        return vaccineCycle;
+    }
+
+    public void setVaccineCycle(int vaccineCycle) {
+        this.vaccineCycle = vaccineCycle;
+    }
+
+    public int getFlexibleCycle() {
+        return flexibleCycle;
+    }
+
+    public void setFlexibleCycle(int flexibleCycle) {
+        this.flexibleCycle = flexibleCycle;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public List<Examination> getExaminations() {
+        return examinations;
+    }
+
+    public void setExaminations(List<Examination> examinations) {
+        this.examinations = examinations;
     }
 }

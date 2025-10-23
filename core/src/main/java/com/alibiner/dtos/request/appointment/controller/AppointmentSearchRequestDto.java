@@ -5,15 +5,9 @@ import com.alibiner.annotations.ValueOfEnum;
 import com.alibiner.enums.AppointmentStatus;
 import com.alibiner.errorMessages.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
-@Getter
-@Setter
 public class AppointmentSearchRequestDto {
     private UUID doctorId;
     private UUID animalId;
@@ -29,4 +23,54 @@ public class AppointmentSearchRequestDto {
     @ValueOfEnum(enumClass = AppointmentStatus.class, values = "RESERVED,COMPLETED,CANCELLED")
     private String status;
 
+    public AppointmentSearchRequestDto() {
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public UUID getAnimalId() {
+        return animalId;
+    }
+
+    public void setAnimalId(UUID animalId) {
+        this.animalId = animalId;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public LocalDateTime getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(LocalDateTime minDate) {
+        this.minDate = minDate;
+    }
+
+    public LocalDateTime getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(LocalDateTime maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

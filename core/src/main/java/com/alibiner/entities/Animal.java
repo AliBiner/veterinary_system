@@ -3,15 +3,11 @@ package com.alibiner.entities;
 import java.util.*;
 import com.alibiner.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "animals")
-@Getter
-@Setter
 public class Animal extends BaseEntity {
 
     @Id
@@ -49,4 +45,88 @@ public class Animal extends BaseEntity {
 
     @OneToMany(mappedBy = "animal")
     List<Appointment> appointments;
+
+
+    public Animal() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Species getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public LocalDate getBirthOfDate() {
+        return birthOfDate;
+    }
+
+    public void setBirthOfDate(LocalDate birthOfDate) {
+        this.birthOfDate = birthOfDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 }

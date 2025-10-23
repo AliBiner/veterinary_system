@@ -2,10 +2,28 @@ package com.alibiner.dtos.response.species;
 
 import java.util.*;
 import com.alibiner.dtos.response.BaseResponseDto;
-import lombok.Data;
 
-@Data
+
 public class SpeciesResponseDto implements BaseResponseDto {
     private UUID id;
     private String name;
+
+    public SpeciesResponseDto() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

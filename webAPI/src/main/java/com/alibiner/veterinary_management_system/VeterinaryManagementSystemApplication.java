@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.alibiner.entities")
 public class VeterinaryManagementSystemApplication {
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(VeterinaryManagementSystemApplication.class, args);
     }
 

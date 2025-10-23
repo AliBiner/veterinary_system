@@ -2,17 +2,9 @@ package com.alibiner.entities;
 
 import java.util.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "cities")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
 public class City extends BaseEntity {
 
     @Id
@@ -28,4 +20,49 @@ public class City extends BaseEntity {
 
     @OneToMany(mappedBy = "city")
     private List<User> users;
+
+    public City() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isDelete=" + isDelete +
+                ", users=" + users +
+                '}';
+    }
 }

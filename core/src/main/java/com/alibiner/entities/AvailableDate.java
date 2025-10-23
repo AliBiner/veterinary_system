@@ -2,15 +2,9 @@ package com.alibiner.entities;
 
 import java.util.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "available_dates",
         uniqueConstraints = {
@@ -29,6 +23,33 @@ public class AvailableDate extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public AvailableDate() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public LocalDate getAvailableDate() {
+        return availableDate;
+    }
+
+    public void setAvailableDate(LocalDate availableDate) {
+        this.availableDate = availableDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {

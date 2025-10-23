@@ -11,8 +11,8 @@
     <groupId>com.alibiner</groupId>
     <artifactId>webAPI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>veterinary_management_system</name>
+    <packaging>jar</packaging>
+    <name>webAPI</name>
     <description>veterinary_management_system</description>
     <url/>
     <licenses>
@@ -28,7 +28,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>25</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>

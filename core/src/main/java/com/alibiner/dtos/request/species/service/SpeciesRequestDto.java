@@ -2,16 +2,27 @@ package com.alibiner.dtos.request.species.service;
 
 import java.util.*;
 import com.alibiner.dtos.request.BaseRequestDto;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Data
-@NoArgsConstructor
-@Getter
-@Setter
 public class SpeciesRequestDto implements BaseRequestDto {
     private UUID id;
     private String name;
+
+    public SpeciesRequestDto() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

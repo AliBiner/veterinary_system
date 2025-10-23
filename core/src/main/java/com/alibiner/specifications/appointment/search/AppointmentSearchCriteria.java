@@ -2,12 +2,10 @@ package com.alibiner.specifications.appointment.search;
 
 import java.util.*;
 import com.alibiner.enums.AppointmentStatus;
-import lombok.Data;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
-@Data
 public class AppointmentSearchCriteria {
 
     private UUID doctorId;
@@ -16,6 +14,9 @@ public class AppointmentSearchCriteria {
     private LocalDateTime minDate;
     private LocalDateTime maxDate;
     private AppointmentStatus status;
+
+    public AppointmentSearchCriteria() {
+    }
 
     public AppointmentSearchCriteria(@NonNull LocalDateTime minDate, @NonNull LocalDateTime maxDate, @NonNull AppointmentStatus status) {
         this(null, null, null, minDate, maxDate, status);
@@ -27,6 +28,54 @@ public class AppointmentSearchCriteria {
         this.ownerId = ownerId;
         this.minDate = minDate;
         this.maxDate = maxDate;
+        this.status = status;
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public UUID getAnimalId() {
+        return animalId;
+    }
+
+    public void setAnimalId(UUID animalId) {
+        this.animalId = animalId;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public LocalDateTime getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(LocalDateTime minDate) {
+        this.minDate = minDate;
+    }
+
+    public LocalDateTime getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(LocalDateTime maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
         this.status = status;
     }
 }

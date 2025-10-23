@@ -6,15 +6,9 @@ import com.alibiner.errorMessages.ErrorMessages;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
-@Getter
-@Setter
 public class AppointmentRequestDto implements BaseRequestDto {
 
     @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
@@ -30,4 +24,39 @@ public class AppointmentRequestDto implements BaseRequestDto {
 
     @NotNull(message = ErrorMessages.ValidationMessages.NOT_NULL)
     private String companionName;
+
+    public AppointmentRequestDto() {
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public UUID getAnimalId() {
+        return animalId;
+    }
+
+    public void setAnimalId(UUID animalId) {
+        this.animalId = animalId;
+    }
+
+    public LocalDateTime getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(LocalDateTime appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public String getCompanionName() {
+        return companionName;
+    }
+
+    public void setCompanionName(String companionName) {
+        this.companionName = companionName;
+    }
 }

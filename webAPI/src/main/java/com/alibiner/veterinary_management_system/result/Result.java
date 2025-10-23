@@ -1,13 +1,15 @@
 package com.alibiner.veterinary_management_system.result;
 
-import lombok.Data;
 import org.springframework.data.domain.Page;
 
-@Data
+
 public class Result<T> {
     private int status;
     private String message;
     private T data;
+
+    public Result() {
+    }
 
     public Result(int status, String message, T data) {
         this.status = status;
@@ -42,5 +44,29 @@ public class Result<T> {
 
     public static Result<Void> conflict(String message) {
         return new Result<>(409, message, null);
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
