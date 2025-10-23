@@ -37,19 +37,19 @@ Yazacağınız uygulama veteriner çalışanı tarafından kullanılacaktır. Bu
 
 ### 2. DB
 
-Right click to image and open the new tab for detail preview
+Right click to image and open image in new tab for detail preview
 
 <img src="documents/db_diagram/before/db_uml.svg" style="width: 50%; height: 50%">
 
 ### 3. Class Diagram for Service Layer
 
-Right click to image and open the new tab for detail preview
+Right click to image and open image in new tab for detail preview
 
 <img src="documents/class_diagrams/services/before/service_classes.svg" style="width: 50%; height: 50%">
 
 ### 4. Class Diagram for Controllers
 
-Right click to image and open the new tab for detail preview
+Right click to image and open image in new tab for detail preview
 
 <img src="documents/class_diagrams/services/before/contoller_classes.svg" style="width: 50%; height: 50%">
 
@@ -59,13 +59,13 @@ Right click to image and open the new tab for detail preview
 
 ### 1. DB
 
-Right click to image and open the new tab for detail preview
+Right click to image and open image in new tab for detail preview
 
 <img src="documents/db_diagram/after/db_uml.svg" style="width: 20%; height: 50% ">
 
 ### 2. Class Diagram for Service Layer
 
-Right click to image and open the new tab for detail preview
+Right click to image and open image in new tab for detail preview
 
 <img src="documents/class_diagrams/services/after/service_classes.svg" style="width: 50%; height: 50% ">
 
