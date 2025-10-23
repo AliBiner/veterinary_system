@@ -6,10 +6,14 @@ import com.alibiner.enums.AppointmentStatus;
 import com.alibiner.errorMessages.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Data
+@Getter
+@Setter
 public class AppointmentSearchRequestDto {
     private UUID doctorId;
     private UUID animalId;

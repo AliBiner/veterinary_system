@@ -7,10 +7,14 @@ import com.alibiner.enums.Gender;
 import com.alibiner.errorMessages.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Data
+@Getter
+@Setter
 public class AnimalRequestDto implements BaseRequestDto {
     private UUID id;
 
