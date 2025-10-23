@@ -39,7 +39,7 @@
                 "cities"
               ]
             },
-            "description": "Request body ile çalışmaktadır.\n\n2 alana ihtiyacı vardır:\n\n- id: null olamaz ve UUID standartında olmalıdır.\n    \n- name: null olamaz, blank olamaz.\n    \n\n\"name\" bilgisi başka bir kayıt ile eşleşirse hata vercektir."
+            "description": "This request works with a request body.  \nIt requires 2 fields:\n\n- **id:** cannot be null and must follow the UUID standard.\n    \n- **name:** cannot be null or blank.\n    \n\nIf the **\"name\"** value matches an existing record, an error will be returned."
           },
           "response": [
             {
@@ -55,7 +55,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"id\":\"{{city-id}}\", //\"36bad2a9-3fed-4302-9b63-6644ee84d941\",\n    \"name\":\"Antalya\"\n}",
+                  "raw": "{\n    \"id\":\"\", //\"36bad2a9-3fed-4302-9b63-6644ee84d941\",\n    \"name\":\"Antalya\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -63,9 +63,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/cities",
+                  "raw": "v1/cities",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "cities"
@@ -344,9 +344,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/cities",
+                  "raw": "v1/cities",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "cities"
@@ -542,9 +542,9 @@
                   "raw": "{\n}"
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/cities/?id=3",
+                  "raw": "v1/cities/?id=3",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "cities",
@@ -717,9 +717,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{base-url}}v1/cities/?page=0&size=1&sort=name,asc&name=a",
+                  "raw": "v1/cities/?page=0&size=1&sort=name,asc&name=a",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "cities",
@@ -825,9 +825,9 @@
                   "raw": ""
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/cities/?id=13",
+                  "raw": "v1/cities/?id=13",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "cities",
@@ -989,9 +989,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/species",
+                  "raw": "v1/species",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "species"
@@ -1161,7 +1161,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"id\": \"{{species-id}}\",//\"88d09cef-7b0c-4270-ba6c-7dd330184725\",\n    \"name\":\"Test\"\n}",
+                  "raw": "{\n    \"id\": \"\",//\"88d09cef-7b0c-4270-ba6c-7dd330184725\",\n    \"name\":\"Test\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1169,9 +1169,9 @@
                   }
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/species",
+                  "raw": "v1/species",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "species"
@@ -1344,13 +1344,13 @@
                   "raw": ""
                 },
                 "url": {
-                  "raw": "{{base-url}}v1/species/{{species-id}}",
+                  "raw": "v1/species/",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "species",
-                    "{{species-id}}"
+                    ""
                   ]
                 }
               },
@@ -1508,13 +1508,13 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{base-url}}v1/species/{{species-id}}",
+                  "raw": "v1/species/",
                   "host": [
-                    "{{base-url}}v1"
+                    "v1"
                   ],
                   "path": [
                     "species",
-                    "{{species-id}}"
+                    ""
                   ]
                 }
               },
