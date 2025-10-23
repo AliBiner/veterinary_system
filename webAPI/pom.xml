@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.alibiner</groupId>
-    <artifactId>veterinary_management_system</artifactId>
+    <artifactId>webAPI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>veterinary_management_system</name>
@@ -80,6 +80,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>com.alibiner.veterinary_management_system.VeterinaryManagementSystemApplication
+                    </mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -90,5 +92,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
