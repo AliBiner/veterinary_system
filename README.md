@@ -95,8 +95,9 @@ Example request URL: https://www.alibiner.com/api/v1/cities
 3. spring-boot-starter-validation
 4. modelmapper
 5. spring-boot-starter-data-jpa
-6. jackson-core
-7. jackson-databind
+6. hibernate
+7. jackson-core
+8. jackson-databind
 
 ### Architecture
 1. Clean/Hexagonal/Onion Architecture
