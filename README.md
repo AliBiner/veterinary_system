@@ -1,41 +1,37 @@
-# Java Spring Boot - Veteriner Yönetim Sistemi Bitirme Projesi
+# Java Spring Boot - Veterinary Management System Graduation Project
 
-## Veteriner Yönetim Sistemi
+## Veterinary Management System
 
-Veteriner yönetim sistemi projesi ile bir veteriner kliniğinin kendi işlerini yönetebildiği API yazmanı istiyoruz.
+With this project, you are expected to build an API that allows a veterinary clinic to manage its daily operations.
+The application will be used by clinic staff.
+Through this system, users will be able to:
 
-Yazacağınız uygulama veteriner çalışanı tarafından kullanılacaktır. Bu uygulama ile çalışan sisteme
-
-- veteriner doktorları kaydedecek,
-
-- doktorların çalışma günlerini (müsait günlerini) kaydedecek, saat olmadan tarih olarak kayıt yapılacak,
-
-- müşterileri kaydedecek,
-
-- müşterilere ait hayvanları kaydedecek,
-
-- hayvanlara uygulanmış aşıları tarihleriyle birlikte kaydedecek,
-
-- hayvanlar için veteriner hekimlere randevu oluşturacaklar,
-
-- randevu oluştururken tarih ve saat girilecek,
-
-- randevu oluştururken hem doktorun müsait günlerinden saat olmadan kontrol yapılmalı hem de randevu kayıtlarından tarih ve saat ile kontrol yapılmalı. Kayıtlarda çakışma olmadığı durumda randevu oluşturulmalıdır.
+- Register veterinarians
+- Save veterinarians’ available working days (only date, without time)
+- Register customers
+- Register animals belonging to customers
+- Record vaccines applied to animals with their dates
+- Create appointments for animals with veterinarians
+- While creating appointments:
+    - The system must check if the selected date is available in the veterinarian’s schedule (day check without time)
+    - The system must also check existing appointments for conflicts (date and time)
+    - Appointments can only be created if there are no conflicts
 
 ---
-## Gereksinim Analizi
+
+## Requirements Analysis
 
 [Requirements Analysis](readme_files/Requirements_Analysis.md)
 
 ---
 
-## Kodlama Öncesi Analizler
+## Pre-Development Analysis
 
-### 1. İş Akışı
+### 1. Business Flow
 
 [Business Flow Analysis](readme_files/Flow_Chart_Diagrams.md)
 
-### 2. DB
+### 2. Database Diagram
 
 Right click to image and open image in new tab for detail preview
 
@@ -55,9 +51,9 @@ Right click to image and open image in new tab for detail preview
 
 ---
 
-## Kodlama Sonrası Çıktılar
+## Post-Development Outputs
 
-### 1. DB
+### 1. Database Diagram
 
 Right click to image and open image in new tab for detail preview
 
@@ -75,43 +71,42 @@ Right click to image and open image in new tab for detail preview
 
 <a href = "documents/vet_system_api.postman_collection.json">Documentation Export File</a>
 
+Use this URL as the base URL for all API requests: https://www.alibiner.com
+
+Example request URL: https://www.alibiner.com/api/v1/cities
+
 ---
 
-## Kullanılan Araçlar
+## Tools and Technologies
 
 ### Technologies
 
-1. Java 25
+1. Java 21
 2. PostgreSQL 17.6
 3. Postman
 4. pgAdmin
 
 ### Framework
-
 1. Spring Boot 3.5.6
 
 ### Dependencies
-
 1. spring-boot-starter-actuator
 2. spring-boot-starter-web
 3. spring-boot-starter-validation
-4. lombok
-5. modelmapper
-6. spring-boot-starter-data-jpa
-7. jackson-core
-8. jackson-databind
+4. modelmapper
+5. spring-boot-starter-data-jpa
+6. jackson-core
+7. jackson-databind
 
 ### Architecture
-
 1. Clean/Hexagonal/Onion Architecture
 
-### Package Management
-
+### Build Tool
 1. Maven
 
 ---
 
-## Setups
+## Setup Instructions
 
 ### Installing PostgreSQL 17.6
 
