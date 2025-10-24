@@ -83,8 +83,9 @@ Example request URL: https://www.alibiner.com/api/v1/cities
 
 1. Java 21
 2. PostgreSQL 17.6
-3. Postman
-4. pgAdmin
+3. Docker
+4. Postman
+5. pgAdmin
 
 ### Framework
 1. Spring Boot 3.5.6
